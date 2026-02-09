@@ -38,3 +38,26 @@ button {
     border: none; /* Remove button border */
     cursor: pointer; /* Set cursor to pointer on hover */
 }
+
+#name {
+    font-family: 'Sacramento', cursive;
+    font-size: 64px;
+    margin-bottom: 10px;
+    color: #FB607F;
+}
+/* Floating Heart Animation */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    color: #FB607F;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh) translateX(20px) rotate(360deg);
+    }
+}
