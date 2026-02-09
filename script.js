@@ -1,22 +1,13 @@
 // script.js
 
-// 1. Define your images here [NEW]
-const myPhotos = [
-    'cat-heart.gif', // Keep the original gif as the first one
-    'photo1.jpg',    // Add your own photo filenames here
-    'photo2.jpg',
-    'photo3.jpg'
-];
-
-let currentPhotoIndex = 0;
-
 function selectOption(option) {
     if (option === 'yes') {
         flashRainbowColors(function() {
             document.getElementById('question').style.display = 'none';
-            document.getElementById('name').style.display = 'none'; //
+            // Hide the name Mikhaela Joyce Lazarte
+            document.getElementById('name').style.display = 'none';
             displayCatHeart();
-            startHearts(); 
+            startHearts(); // Start the heart animation [NEW]
         });
     } else if (option === 'no') {
         document.getElementById('no-button').innerText = 'You sure?';
@@ -27,49 +18,67 @@ function selectOption(option) {
     }
 }
 
-// ... (keep flashRainbowColors, displayCat, createHeart, and startHearts as they were)
+function flashRainbowColors(callback) {
+    var colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
+    var i = 0;
+    var interval = setInterval(function() {
+        document.body.style.backgroundColor = colors[i];
+        i = (i + 1) % colors.length;
+    }, 200);
+    setTimeout(function() {
+        clearInterval(interval);
+        document.body.style.backgroundColor = '';
+        if (callback) callback();
+    }, 2000);
+}
+
+function displayCat() {
+    var imageContainer = document.getElementById('image-container');
+    var catImage = new Image();
+    catImage.src = 'cat.gif';
+    catImage.alt = 'Cat';
+    catImage.onload = function() {
+        imageContainer.appendChild(catImage);
+    };
+}
 
 function displayCatHeart() {
     document.getElementById('image-container').innerHTML = '';
-    const imageContainer = document.getElementById('image-container');
-    const slideshowImg = new Image();
-    
-    // Set initial image
-    slideshowImg.src = myPhotos[0];
-    slideshowImg.alt = 'Valentine Slideshow';
-    
-    slideshowImg.onload = function() {
-        imageContainer.appendChild(slideshowImg);
+    var imageContainer = document.getElementById('image-container');
+    var catHeartImage = new Image();
+    catHeartImage.src = 'cat-heart.gif';
+    catHeartImage.alt = 'Cat Heart';
+    catHeartImage.onload = function() {
+        imageContainer.appendChild(catHeartImage);
         document.getElementById('options').style.display = 'none';
         
-        // Add "Yey love u baby" with Fade-In [NEW]
+        // Add "Yey love u baby" message
         var loveMessage = document.createElement('div');
         loveMessage.innerText = 'Yey love u baby';
-        loveMessage.className = 'fade-in'; // Apply the CSS class
         loveMessage.style.fontFamily = "'Sacramento', cursive";
         loveMessage.style.fontSize = "48px";
         loveMessage.style.marginTop = "20px";
         loveMessage.style.color = "#FB607F";
         document.getElementById('container').appendChild(loveMessage);
-        
-        // Start the slideshow if you have more than one photo
-        if (myPhotos.length > 1) {
-            startSlideshow(slideshowImg);
-        }
     };
 }
 
-// Function to rotate images [NEW]
-function startSlideshow(imgElement) {
-    setInterval(() => {
-        currentPhotoIndex = (currentPhotoIndex + 1) % myPhotos.length;
-        imgElement.style.opacity = 0; // Fade out current
-        
-        setTimeout(() => {
-            imgElement.src = myPhotos[currentPhotoIndex];
-            imgElement.style.opacity = 1; // Fade in new
-        }, 500); // Half-second transition
-    }, 3000); // Changes every 3 seconds
+// Function to create a single falling heart
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+    document.body.appendChild(heart);
+    
+    // Remove heart after animation ends
+    setTimeout(() => { heart.remove(); }, 5000);
 }
 
-// Keep the rest of your original functions below...
+// Function to start the heart shower
+function startHearts() {
+    setInterval(createHeart, 300);
+}
+
+displayCat();
