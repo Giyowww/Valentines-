@@ -1,28 +1,23 @@
 // script.js
 
-// Function to handle button click events
 function selectOption(option) {
     if (option === 'yes') {
-        // Flash rainbow colors
         flashRainbowColors(function() {
-            document.getElementById('question').style.display = 'none'; // Hide the question
-            document.getElementById('name').style.display = 'none'; // Hide the name Mikhaela Joyce Lazarte
-            displayCatHeart(); // Display the cat-heart.gif
+            document.getElementById('question').style.display = 'none';
+            // Hide the name Mikhaela Joyce Lazarte
+            document.getElementById('name').style.display = 'none';
+            displayCatHeart();
+            startHearts(); // Start the heart animation [NEW]
         });
     } else if (option === 'no') {
-        // Change text on the "No" button
         document.getElementById('no-button').innerText = 'You sure?';
-        // Increase font size of "Yes" button
         var yesButton = document.getElementById('yes-button');
         var currentFontSize = window.getComputedStyle(yesButton).getPropertyValue('font-size');
         var newSize = parseFloat(currentFontSize) * 2;
         yesButton.style.fontSize = newSize + 'px';
-    } else {
-        alert('Invalid option!');
     }
 }
 
-// Function to flash rainbow colors
 function flashRainbowColors(callback) {
     var colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
     var i = 0;
@@ -33,13 +28,10 @@ function flashRainbowColors(callback) {
     setTimeout(function() {
         clearInterval(interval);
         document.body.style.backgroundColor = '';
-        if (callback) {
-            callback();
-        }
+        if (callback) callback();
     }, 2000);
 }
 
-// Function to display the cat.gif initially
 function displayCat() {
     var imageContainer = document.getElementById('image-container');
     var catImage = new Image();
@@ -50,7 +42,6 @@ function displayCat() {
     };
 }
 
-// Function to display the cat-heart.gif and the new message
 function displayCatHeart() {
     document.getElementById('image-container').innerHTML = '';
     var imageContainer = document.getElementById('image-container');
@@ -70,6 +61,24 @@ function displayCatHeart() {
         loveMessage.style.color = "#FB607F";
         document.getElementById('container').appendChild(loveMessage);
     };
+}
+
+// Function to create a single falling heart
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+    document.body.appendChild(heart);
+    
+    // Remove heart after animation ends
+    setTimeout(() => { heart.remove(); }, 5000);
+}
+
+// Function to start the heart shower
+function startHearts() {
+    setInterval(createHeart, 300);
 }
 
 displayCat();
