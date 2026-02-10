@@ -28,7 +28,7 @@ body {
     margin-top: 20px; /* Add space above the options */
 }
 
-button {
+button {q
     padding: 10px 20px; /* Set padding for buttons */
     margin: 0 10px; /* Set margin around buttons */
     font-size: 26px; /* Set font size for buttons */
@@ -60,4 +60,9 @@ button {
     to {
         transform: translateY(105vh) translateX(20px) rotate(360deg);
     }
+}
+video {
+    max-width: 90%;  /* Ensures the video doesn't overflow on small screens */
+    height: auto;
+    border: 5px solid #FB607F; /* Optional: adds a pink frame to the video */
 }
