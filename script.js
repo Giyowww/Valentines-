@@ -60,6 +60,18 @@ function displayCatHeart() {
         loveMessage.style.marginTop = "20px";
         loveMessage.style.color = "#FB607F";
         document.getElementById('container').appendChild(loveMessage);
+
+        // --- ADD VIDEO START ---
+        var video = document.createElement('video');
+        video.src = 'your-video.mp4'; // Change this to your video file name
+        video.width = 320;            // Set the width you want
+        video.controls = true;        // Shows play/pause buttons
+        video.autoplay = true;        // Attempts to play automatically
+        video.style.marginTop = "20px";
+        video.style.borderRadius = "15px"; // Rounds the corners nicely
+        
+        document.getElementById('container').appendChild(video);
+        // --- ADD VIDEO END ---
     };
 }
 
@@ -82,3 +94,4 @@ function startHearts() {
 }
 
 displayCat();
+
